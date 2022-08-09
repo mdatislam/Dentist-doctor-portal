@@ -6,6 +6,7 @@ import About from './About/About';
 import Appointment from './Appointment/Appointment';
 import Login from './Protective/Login';
 import Footer from './SharedPage/Footer';
+import SingUp from './Protective/SingUp';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path='/About' element={<About></About>}></Route>
       <Route path='/Appointment' element={<Appointment></Appointment>}></Route>
       <Route path='/Login' element={<Login></Login>}></Route>
+      <Route path='/SignUp' element={<SingUp></SingUp>}></Route>
      </Routes>
      <Footer/>
     </div>
