@@ -1,13 +1,33 @@
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { NavLink } from 'react-router-dom';
+import auth from './../firebase.init';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate()
+  const [user, loading] = useAuthState(auth);
+ // console.log(user)
+  const logout = () => {
+    signOut(auth);
+    navigate('/Home')
+  };
+
     const Menu =[<li ><NavLink  className="rounded-lg" to="/Home"> Home</NavLink></li>,
     <li><NavLink className="rounded-lg" to="/About"> About</NavLink></li>,
-    <li><NavLink className="rounded-lg" to="/Appointment"> Appoinment</NavLink></li>,
-    <li><NavLink className="rounded-lg" to="/Login"> Login</NavLink></li>]
+    <li><NavLink className="rounded-lg" to="/Appointment"> Appointment</NavLink></li>,
+   <li>
+    {user ? 
+    <>
+     <small>{user.displayName}</small>
+   <button onClick={logout} className="btn  btn-ghost">SignOut</button> 
+   </>
+   : <NavLink className="rounded-lg" to="/Login"> Login</NavLink>}
+   </li>
+  ]
     return (
-        <div class="navbar bg-base-100">
+        <div class="navbar bg-[#ffcb24]">
   <div class="navbar-start px-5">
     <div class="dropdown">
       <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -31,7 +51,7 @@ const Navbar = () => {
     <NavLink to ="/Home" class="btn btn-ghost normal-case text-xl">Doctor-Portal_Recape</NavLink>
   </div>
   <div class="navbar-center hidden lg:flex navbar-end">
-    <ul class="menu menu-horizontal p-0">
+    <ul class="menu menu-horizontal p-0 text-white">
       {Menu}
       {/* <li tabindex="0">
         <a>

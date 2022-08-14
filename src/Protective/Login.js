@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import {
+  useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
+  
 } from "react-firebase-hooks/auth";
 import auth from "./../firebase.init";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link,useLocation,useNavigate } from "react-router-dom";
+import Loading from "../SharedPage/Loading";
 
 const Login = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+   
+
+   
+
+    const location = useLocation()
+const navigate= useNavigate()
  
     const {
     register,
@@ -18,11 +27,11 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
-  if (loading || gLoading) return "Loading...";
+  if (loading || gLoading)  return <Loading></Loading>
 
   let signInError
   if(error || gError){
-  signInError = <p className=" text-red-500"><small>{error?.message || gError.message}</small></p>
+  signInError = <p className=" text-red-500"><small>{error?.message || gError?.message}</small></p>
   }
 
   const onSubmit = (data) =>{
@@ -30,9 +39,13 @@ const Login = () => {
     signInWithEmailAndPassword(data.email, data.password)
   } 
 
+
+
+let from = location.state?.from?.pathname || '/Home'
   
   if (user || gUser) {
     console.log(user);
+    navigate(from,{replace:true})
   }
   return (
     <div className="flex  justify-center justify-items-center">
@@ -107,6 +120,9 @@ const Login = () => {
                 )}
               </label>
             </div>
+            <small><Link  className='text-primary font-bold' to='/UpdatePass'>Forget Password ?</Link></small>
+           
+              
             {signInError}
             <input
               type="submit"

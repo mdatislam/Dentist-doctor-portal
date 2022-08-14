@@ -1,18 +1,53 @@
 import React from 'react';
 import { format } from 'date-fns';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from './../firebase.init';
+import { toast } from 'react-toastify';
 
-const BookingForm = ({booking, setBooking,date}) => {
+const BookingForm = ({booking, setBooking,date,refetch}) => {
     const {name,slots}= booking
     //console.log(name)
+    const [user, loading, error] = useAuthState(auth);
 
     const handleSubmit= event => {
       event.preventDefault()
-      const date = event.target.date.value 
+     const formatDate = format(date,"PP")
       const slot = event.target.slot.value 
-      const name = event.target.name.value 
-      const mobile = event.target.mobile.value 
-      console.log(date,slot,name,mobile)
-      setBooking(null)
+      const newBooking ={
+        //treatmentId: _id,
+        treatmentName:name,
+         date:formatDate,
+        slot,
+        patientName: user.displayName,
+        patientEmail:user.email,
+        mobile:event.target.mobile.value 
+      }
+      //console.log(newBooking)
+      fetch("http://localhost:5000/booking",{
+        method:"POST",
+        headers:{
+          "content-type":"application/json"
+        },
+        body:JSON.stringify(newBooking)
+      })
+      .then(res=> res.json())
+      .then(data => {
+        console.log(data.booking)
+        if(data.success){
+          toast(`Appointment set on ${data.booking.date}`,{
+            position:"top-center",
+            theme:"colored",
+            type:"success"
+          })
+          //alert(`Appointment set on ${data.booking.date}`)
+        }
+      else {
+        alert(`you already have a appointment on  ${data.booking.date}`)
+       }
+       refetch()
+      })
+    
+    setBooking(null)
     }
     return (
         <>
@@ -29,8 +64,8 @@ const BookingForm = ({booking, setBooking,date}) => {
       slots.map(slot=> <option value={slot}>{slot}</option>)
     }
 </select>
-    <input type="text"  name= 'name' placeholder="Your name" class="input input-bordered w-full max-w-xs" />
-    <input type="email" placeholder="email" class="input input-bordered w-full max-w-xs" />
+    <input type="text"  name= 'name' value={user.displayName} class="input input-bordered w-full max-w-xs" />
+    <input type="email" value={user.email} class="input input-bordered w-full max-w-xs" />
     <input type="text" name='mobile' placeholder="Mobile" class="input input-bordered w-full max-w-xs" /> <br/>
     <input type="submit" value='submit'  class="btn btn-secondary input-bordered w-full max-w-xs mt-3" />
     </form>
