@@ -17,6 +17,9 @@ const Navbar = () => {
     const Menu =[<li ><NavLink  className="rounded-lg" to="/Home"> Home</NavLink></li>,
     <li><NavLink className="rounded-lg" to="/About"> About</NavLink></li>,
     <li><NavLink className="rounded-lg" to="/Appointment"> Appointment</NavLink></li>,
+    <li>
+      {user && <NavLink className="rounded-lg" to="/Dashboard">Dashboard</NavLink>}
+      </li>,
    <li>
     {user ? 
     <>
@@ -65,6 +68,13 @@ const Navbar = () => {
       </li>
       <li><a>Item 3</a></li> */}
     </ul>
+  </div>
+  <div className='navbar-end'>
+  <label for="my-drawer-2"
+  tabindex="1" class="btn btn-ghost lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+      </label>
+  {/* <label  class="btn btn-primary drawer-button lg:hidden">Open drawer</label> */}
   </div>
   
 </div>

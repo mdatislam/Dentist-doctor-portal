@@ -11,6 +11,9 @@ import RequireAuh from './Protective/RequireAuh';
 import UpdatePassword from './Protective/UpdatePassword';
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from "./Dashboard/Dashboard";
+import AppointmentList from "./Dashboard/AppointmentList";
+import MyProfile from "./Dashboard/MyProfile";
 
 function App() {
   return (
@@ -27,6 +30,12 @@ function App() {
         <Appointment/>
       </RequireAuh>}></Route>
 
+     <Route path="Dashboard" element={<RequireAuh>
+      <Dashboard/></RequireAuh>}>
+        <Route index element={<MyProfile/>}/>
+        <Route path="AppointmentList" element={<AppointmentList/>}/>
+      </Route>
+      
      </Routes>
      <Footer/>
      <ToastContainer />
