@@ -8,6 +8,9 @@ import auth from "./../firebase.init";
 import { useForm } from "react-hook-form";
 import { NavLink,useNavigate } from "react-router-dom";
 import Loading from "../SharedPage/Loading";
+import useToken from './../Hooks/useToken';
+
+
 
 const SingUp = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -26,6 +29,8 @@ const SingUp = () => {
     handleSubmit,
   } = useForm();
 
+  const [token]= useToken(user || gUser)
+
   if (loading || gLoading || updating) return <Loading></Loading>
 
   let signInError
@@ -38,13 +43,14 @@ const SingUp = () => {
     await createUserWithEmailAndPassword(data.email, data.password)
     await updateProfile({ displayName:data.name });
     alert('Updated profile');
-    navigate('/Appointment')
+   // navigate('/Appointment')
 
   } 
 
   
-  if (user || gUser) {
-    console.log(user || gUser);
+  if (token) {
+    navigate("/Appointment")
+    //console.log(user || gUser);
   }
     return (
         <div className="flex  justify-center justify-items-center">
