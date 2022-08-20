@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getAuth, signOut } from 'firebase/auth';
 import auth from '../firebase.init';
@@ -6,17 +6,38 @@ import Loading from '../SharedPage/Loading';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const AppointmentList = () => {
     const [user] = useAuthState(auth);
     const navigate = useNavigate()
 
-    const {data,isLoading} = useQuery(["List"], () =>
+    /* const [appointment,setAppointment]=useState([])
+    useEffect(()=>{
+      fetch(`http://localhost:5000/appointmentList?email=${user.email}`,{
+        method:"GET",
+        headers: {
+          'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      },
+      })
+      .then(res=>{
+        if(res.status=== 401 || res.status=== 403){
+          signOut(auth)
+          localStorage.removeItem('accessToken')
+          navigate("/Home")
+        }
+        return res.json()
+      })
+      .then(data=> setAppointment(data))
+    },[user]) */
+
+   
+    const {data,isLoading} = useQuery(['list',user], () =>
     fetch(`http://localhost:5000/appointmentList?email=${user.email}`,{
       method:"GET",
       headers: {
-        'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-    }
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+    },
     })
     .then(res=>{
       if(res.status=== 401 || res.status=== 403){
@@ -25,12 +46,13 @@ const AppointmentList = () => {
         navigate("/Home")
       }
       return res.json()
-    }))
+    })) 
+   
 
-    if(isLoading){
+     if(isLoading){
         return <Loading/>
     }
-    console.log(data)
+    //console.log(data)
     return (
         <div>
             <div class="overflow-x-auto">
