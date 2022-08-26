@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const navigate = useNavigate()
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
  // console.log(user)
   const logout = () => {
     signOut(auth);
@@ -31,7 +31,7 @@ const Navbar = () => {
    </li>
   ]
     return (
-        <div class="navbar bg-[#ffcb24]">
+        <div class="navbar bg-[#fda456]">
   <div class="navbar-start px-5">
     <div class="dropdown">
       <label tabindex="0" class="btn btn-ghost lg:hidden">

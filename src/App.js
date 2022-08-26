@@ -16,10 +16,12 @@ import AppointmentList from "./Dashboard/AppointmentList";
 import MyProfile from "./Dashboard/MyProfile";
 import Users from './Dashboard/Users';
 import RequireAdmin from "./Protective/RequireAdmin";
+import AddDoctor from './Dashboard/AddDoctor';
+import ManageDoctor from './Dashboard/ManageDoctor';
 
 function App() {
   return (
-    <div className="max-w-7xl mx-auto px-12">
+    <div className="max-w-7xl mx-auto">
      <Navbar></Navbar>
      <Routes>
       <Route path='/Home' element={<Home></Home>}></Route>
@@ -37,6 +39,8 @@ function App() {
         <Route index element={<MyProfile/>}/>
         <Route path="AppointmentList" element={<AppointmentList/>}/>
         <Route path="Users" element={<RequireAdmin><Users/></RequireAdmin>}/>
+        <Route path="AddDoctor" element={<RequireAdmin><AddDoctor/></RequireAdmin>}/>
+        <Route path="ManageDoctor" element={<RequireAdmin><ManageDoctor/></RequireAdmin>}/>
       </Route>
       
      </Routes>

@@ -19,7 +19,7 @@ const Dashboard = () => {
   <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content py-4 justify-center">
    {/*  <!-- Page content here --> */}
-  <strong className='text-secondary text-center m-4'>My Appointment List:</strong>
+{/*  <strong className='text-secondary text-center m-4'>My Appointment List:</strong> */}
   <Outlet></Outlet>
  
   
@@ -30,8 +30,14 @@ const Dashboard = () => {
       {/* <!-- Sidebar content here --> */}
       <li><Link to="/Dashboard">MyProfile</Link></li>
       <li><Link to="/Dashboard/AppointmentList">AppointmentList</Link></li>
+      <li> <Link to="/Dashboard/AddDoctor">Add Doctor</Link></li>
+      
       <li>
-       {admin && <Link to="/Dashboard/Users">Users</Link>}
+       {admin && <>
+       <Link to="/Dashboard/Users">Users</Link>
+      
+       <Link to="/Dashboard/ManageDoctor">ManageDoctor</Link>
+       </>}
         </li>
    
     </ul>
