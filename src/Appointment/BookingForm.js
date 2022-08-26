@@ -23,7 +23,7 @@ const BookingForm = ({ booking, setBooking, date, refetch }) => {
       mobile: event.target.mobile.value,
     };
     //console.log(newBooking)
-    fetch("http://localhost:5000/booking", {
+    fetch("https://floating-earth-43239.herokuapp.com/booking", {
       method: "POST",
       headers: {
         "content-type": "application/json",

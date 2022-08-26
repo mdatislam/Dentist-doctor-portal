@@ -14,7 +14,7 @@ const AppointmentList = () => {
 
   /* const [appointment,setAppointment]=useState([])
     useEffect(()=>{
-      fetch(`http://localhost:5000/appointmentList?email=${user.email}`,{
+      fetch(`https://floating-earth-43239.herokuapp.com/appointmentList?email=${user.email}`,{
         method:"GET",
         headers: {
           'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -32,12 +32,15 @@ const AppointmentList = () => {
     },[user]) */
 
   const { data, isLoading } = useQuery(["list", user], () =>
-    fetch(`http://localhost:5000/appointmentList?email=${user.email}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    }).then((res) => {
+    fetch(
+      `https://floating-earth-43239.herokuapp.com/appointmentList?email=${user.email}`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    ).then((res) => {
       if (res.status === 401 || res.status === 403) {
         signOut(auth);
         localStorage.removeItem("accessToken");

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DoctorRow = ({doctor,refetch,setDoctorDel,setDoctorEdit}) => {
-    const {name,image,email,serviceName}= doctor
+    const {name,image,email,serviceName,preService}= doctor
     return (
         <tr className='border border-blue-500'>
               <th>
@@ -23,6 +23,7 @@ const DoctorRow = ({doctor,refetch,setDoctorDel,setDoctorEdit}) => {
                 </div>
               </td>
               <td>{email}</td>
+              <td>{preService}</td>
               <td>{serviceName}</td>
               <th>
               <button class=""

@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
     const Menu =[<li ><NavLink  className="rounded-lg" to="/Home"> Home</NavLink></li>,
-    <li><NavLink className="rounded-lg" to="/About"> About</NavLink></li>,
+    
     <li><NavLink className="rounded-lg" to="/Appointment"> Appointment</NavLink></li>,
     <li>
       {user && <NavLink className="rounded-lg" to="/Dashboard">Dashboard</NavLink>}

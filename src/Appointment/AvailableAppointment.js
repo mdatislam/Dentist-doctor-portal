@@ -15,9 +15,9 @@ const AvailableAppointment = ({ date }) => {
     data: services,
     refetch,
   } = useQuery(["Available", formatedDate], () =>
-    fetch(`http://localhost:5000/available?date=${formatedDate}`).then((res) =>
-      res.json()
-    )
+    fetch(
+      `https://floating-earth-43239.herokuapp.com/available?date=${formatedDate}`
+    ).then((res) => res.json())
   );
 
   if (isLoading) {
@@ -25,7 +25,7 @@ const AvailableAppointment = ({ date }) => {
   }
 
   /* useEffect(()=>{
-        fetch(`http://localhost:5000/available?date=${formatedDate}`)
+        fetch(`https://floating-earth-43239.herokuapp.com/available?date=${formatedDate}`)
         .then(res=> res.json())
         .then(data=> setService(data))
     },[formatedDate]) */
