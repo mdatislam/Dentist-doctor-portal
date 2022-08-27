@@ -4,7 +4,7 @@ import { getAuth, signOut } from "firebase/auth";
 import auth from "../firebase.init";
 import Loading from "../SharedPage/Loading";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Navigate } from "react-router-dom";
+import { Navigate,Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -14,7 +14,7 @@ const AppointmentList = () => {
 
   /* const [appointment,setAppointment]=useState([])
     useEffect(()=>{
-      fetch(`https://floating-earth-43239.herokuapp.com/appointmentList?email=${user.email}`,{
+      fetch(`http://localhost:5000/appointmentList?email=${user.email}`,{
         method:"GET",
         headers: {
           'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -32,15 +32,12 @@ const AppointmentList = () => {
     },[user]) */
 
   const { data, isLoading } = useQuery(["list", user], () =>
-    fetch(
-      `https://floating-earth-43239.herokuapp.com/appointmentList?email=${user.email}`,
-      {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    ).then((res) => {
+    fetch(`http://localhost:5000/appointmentList?email=${user.email}`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }).then((res) => {
       if (res.status === 401 || res.status === 403) {
         signOut(auth);
         localStorage.removeItem("accessToken");
@@ -67,6 +64,8 @@ const AppointmentList = () => {
               <th>Time Slot</th>
               <th>Email</th>
               <th>Mobile</th>
+              <th>Payment Status</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -79,6 +78,13 @@ const AppointmentList = () => {
                 <td>{s.slot}</td>
                 <td>{s.patientEmail}</td>
                 <td>{s.mobile}</td>
+                <td>
+                  {(s.price && !s.paid) && 
+                <Link to ={`/Dashboard/Payment/${s._id}`}><button className="btn  btn-xs btn-success">To pay</button></Link>}
+                {(s.price && s.paid) && <>
+                <span className="text-success">Paid</span></>}
+                
+                </td>
               </tr>
             ))}
           </tbody>

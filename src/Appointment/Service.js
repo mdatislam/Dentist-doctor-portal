@@ -15,6 +15,7 @@ const Service = ({service,setBooking}) => {
           </p>
           <p>{service.slots.length} {service.slots.length>0 ? 
           'spaces available': <span className='text-secondary'>Try another day</span>}</p>
+          <p><small>Investigation fees:<strong>${service.price}</strong></small></p>
           <div class="card-actions justify-center">
             <label 
            

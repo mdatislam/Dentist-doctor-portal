@@ -13,7 +13,7 @@ const AddDoctor = () => {
     handleSubmit,
   } = useForm();
 
-  /*  const { data:services, isLoading } = useQuery('serviceName', () => fetch('https://floating-earth-43239.herokuapp.com/servicesName').then(res => res.json()))
+  /*  const { data:services, isLoading } = useQuery('serviceName', () => fetch('http://localhost:5000/servicesName').then(res => res.json()))
    // console.log(services)
     if(isLoading)
     { return <Loading/>} */
@@ -22,7 +22,7 @@ const AddDoctor = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    fetch("https://floating-earth-43239.herokuapp.com/servicesName")
+    fetch("http://localhost:5000/servicesName")
       .then((res) => res.json())
       .then((data1) => setServiceName(data1));
   }, []);
@@ -55,7 +55,7 @@ const AddDoctor = () => {
     };
     //console.log(doctorInfo)
 
-    fetch("https://floating-earth-43239.herokuapp.com/doctorInfo", {
+    fetch("http://localhost:5000/doctorInfo", {
       method: "POST",
       headers: {
         "content-type": "application/json",

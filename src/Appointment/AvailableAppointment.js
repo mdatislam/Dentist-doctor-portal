@@ -6,7 +6,7 @@ import BookingForm from "./BookingForm";
 import Service from "./Service";
 
 const AvailableAppointment = ({ date }) => {
-  // const [services, setService]= useState([])
+  //const [services, setService]= useState([])
   const [booking, setBooking] = useState(null);
   const formatedDate = format(date, "PP");
 
@@ -15,9 +15,9 @@ const AvailableAppointment = ({ date }) => {
     data: services,
     refetch,
   } = useQuery(["Available", formatedDate], () =>
-    fetch(
-      `https://floating-earth-43239.herokuapp.com/available?date=${formatedDate}`
-    ).then((res) => res.json())
+    fetch(`http://localhost:5000/available?date=${formatedDate}`).then((res) =>
+      res.json()
+    )
   );
 
   if (isLoading) {
@@ -25,7 +25,7 @@ const AvailableAppointment = ({ date }) => {
   }
 
   /* useEffect(()=>{
-        fetch(`https://floating-earth-43239.herokuapp.com/available?date=${formatedDate}`)
+        fetch(`http://localhost:5000/available?date=${formatedDate}`)
         .then(res=> res.json())
         .then(data=> setService(data))
     },[formatedDate]) */
@@ -47,7 +47,7 @@ const AvailableAppointment = ({ date }) => {
           booking={booking}
           setBooking={setBooking}
           service={services}
-          refetch={refetch}
+          //refetch={refetch}
           date={date}
         />
       )}

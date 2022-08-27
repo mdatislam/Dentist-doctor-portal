@@ -18,6 +18,7 @@ import Users from './Dashboard/Users';
 import RequireAdmin from "./Protective/RequireAdmin";
 import AddDoctor from './Dashboard/AddDoctor';
 import ManageDoctor from './Dashboard/ManageDoctor';
+import Payment from "./Dashboard/Payment";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
       <Dashboard/></RequireAuh>}>
         <Route index element={<MyProfile/>}/>
         <Route path="AppointmentList" element={<AppointmentList/>}/>
+        <Route path="Payment/:id" element={<Payment/>}/>
         <Route path="Users" element={<RequireAdmin><Users/></RequireAdmin>}/>
         <Route path="AddDoctor" element={<RequireAdmin><AddDoctor/></RequireAdmin>}/>
         <Route path="ManageDoctor" element={<RequireAdmin><ManageDoctor/></RequireAdmin>}/>
