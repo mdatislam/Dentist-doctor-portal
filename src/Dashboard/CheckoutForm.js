@@ -1,16 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { CardElement,useStripe,useElements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+
 
 // source of this code is :  https://github.com/stripe/react-stripe-js/blob/master/examples/hooks/0-Card-Minimal.js
 
 
 
-const CheckoutForm = () => {
+const CheckoutForm = ({booking}) => {
     const stripe = useStripe();
   const elements = useElements();
 
-  const [cardError, setCardError]= useState()
+  const [cardError, setCardError]= useState("")
+  const [success, setSuccess]= useState("")
+  const [transactionId, setTransactionId]= useState("")
+  
+//Link source of bellow code: https://stripe.com/docs/payments/quickstart?platform=web&client=react&lang=node
+
+  const [clientSecret, setClientSecret] = useState("");
+   const {price,patientName, patientEmail}=booking
+  useEffect(()=>{
+     fetch('http://localhost:5000/create-payment-intent',{
+        method:'POST',
+        headers:{
+            'content-type':'application/json',
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body:JSON.stringify({price})
+     })
+     .then(res=> res.json())
+     .then(data=> {
+        if(data.clientSecret){
+            //console.log(data)
+            setClientSecret(data.clientSecret)
+        }
+     })
+
+  },[price])
 
     const handleSubmit= async (event) =>{
         event.preventDefault()
@@ -32,7 +58,32 @@ const CheckoutForm = () => {
       if (error) {
         console.log('[error]', error);
         setCardError(error.message)
+        setSuccess("")
       } 
+
+      // Link source of code confirm card payment: https://stripe.com/docs/js/payment_intents/confirm_card_payment
+
+      const {paymentIntent, error:intentError} = await stripe.confirmCardPayment(
+        clientSecret,
+        {
+          payment_method: {
+            card: card,
+            billing_details: {
+              name: patientName,
+              email:patientEmail
+            },
+          },
+        },
+      );
+      if(intentError){
+        setCardError(intentError?.message)
+      }
+      else{
+        setCardError(" ")
+        setTransactionId(paymentIntent.id)
+        setSuccess('congrats Your Payment completed')
+      }
+
     }
     return (
         <>
@@ -53,13 +104,20 @@ const CheckoutForm = () => {
             },
           }}
         />
-        <button className='btn btn-info btn-sm mt-4' type="submit" disabled={!loadStripe}>
+        <button className='btn btn-info btn-sm mt-4' type="submit" disabled={!stripe || !clientSecret}>
           Pay
         </button>
       </form>
       {
         cardError && <p className='text-red-500'>{cardError}</p>
       }
+      {
+        success  && <div className='text-white'>
+            <p>{success}</p>
+            <p>TransactionId:::<span className='text-white font-bold'>{transactionId}</span> </p>
+            </div>
+      }
+      
       </>
     );
 };

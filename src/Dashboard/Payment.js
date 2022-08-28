@@ -21,7 +21,7 @@ const Payment = () => {
        
         <>
         
-        <div class="card w-50 max-w-md bg-base-200 shadow-xl my-12 mx-auto">
+        <div class="card w-50 max-w-md bg-base-100 shadow-xl my-12 mx-auto">
         <div class="card-body">
             <p className=' card-title text-primary'>Hi, {booking.patientName}</p>
         <h4 class=" text-info">Please pay for "{booking.treatmentName} " </h4>
@@ -32,10 +32,10 @@ const Payment = () => {
        
           
     <div>
-    <div class="card w-50 max-w-md bg-info-200 mx-auto shadow-xl">
+    <div class="card w-50 max-w-md bg-secondary mx-auto shadow-xl">
     <div class="card-body">
     <Elements stripe={stripePromise}>
-      <CheckoutForm />
+      <CheckoutForm booking={booking}/>
     </Elements>
   </div>
 </div>
