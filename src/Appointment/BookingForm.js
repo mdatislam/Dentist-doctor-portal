@@ -5,7 +5,7 @@ import auth from "./../firebase.init";
 import { toast } from "react-toastify";
 
 const BookingForm = ({ booking, setBooking, date, refetch }) => {
-  const { name, slots,price } = booking;
+  const { name, slots, price } = booking;
   //console.log(name)
   const [user, loading, error] = useAuthState(auth);
 
@@ -24,7 +24,7 @@ const BookingForm = ({ booking, setBooking, date, refetch }) => {
       mobile: event.target.mobile.value,
     };
     //console.log(newBooking)
-    fetch("http://localhost:5000/booking", {
+    fetch("https://floating-earth-43239.herokuapp.com/booking", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -81,7 +81,7 @@ const BookingForm = ({ booking, setBooking, date, refetch }) => {
               value={user.displayName}
               class="input input-bordered w-full max-w-xs"
             />
-             <input
+            <input
               type="numbet"
               value={price}
               class="input input-bordered w-full max-w-xs"

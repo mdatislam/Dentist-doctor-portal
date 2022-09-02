@@ -9,7 +9,7 @@ const Users = () => {
     isLoading,
     refetch,
   } = useQuery(["user"], () =>
-    fetch("http://localhost:5000/users", {
+    fetch("https://floating-earth-43239.herokuapp.com/users", {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -22,7 +22,7 @@ const Users = () => {
   }
 
   const makeAdmin = (email) => {
-    const url = `http://localhost:5000/user/admin/${email}`;
+    const url = `https://floating-earth-43239.herokuapp.com/user/admin/${email}`;
     //console.log(url)
     fetch(url, {
       method: "PUT",

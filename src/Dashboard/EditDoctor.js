@@ -13,7 +13,7 @@ const EditDoctor = ({ doctorEdit, refetch, setDoctorEdit }) => {
   } = useForm();
   const [allServiceName, setServiceName] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/servicesName")
+    fetch("https://floating-earth-43239.herokuapp.com/servicesName")
       .then((res) => res.json())
       .then((data1) => setServiceName(data1));
   }, []);
@@ -25,13 +25,16 @@ const EditDoctor = ({ doctorEdit, refetch, setDoctorEdit }) => {
       preService: data.preService,
     };
 
-    fetch(`http://localhost:5000/doctor/update/${doctorEdit.email}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newDoctorInfo),
-    })
+    fetch(
+      `https://floating-earth-43239.herokuapp.com/doctor/update/${doctorEdit.email}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newDoctorInfo),
+      }
+    )
       .then((res) => res.json())
       .then((data2) => {
         if (data2.modifiedCount > 0) {
