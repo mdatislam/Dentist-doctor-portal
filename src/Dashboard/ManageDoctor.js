@@ -14,7 +14,7 @@ const ManageDoctor = () => {
     isLoading,
     refetch,
   } = useQuery(["doctorList"], () =>
-    fetch("https://floating-earth-43239.herokuapp.com/doctorList").then((res) =>
+    fetch("https://dentist-doctor.up.railway.app/doctorList").then((res) =>
       res.json()
     )
   );

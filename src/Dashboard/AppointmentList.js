@@ -14,7 +14,7 @@ const AppointmentList = () => {
 
   /* const [appointment,setAppointment]=useState([])
     useEffect(()=>{
-      fetch(`https://floating-earth-43239.herokuapp.com/appointmentList?email=${user.email}`,{
+      fetch(`https://dentist-doctor.up.railway.app/appointmentList?email=${user.email}`,{
         method:"GET",
         headers: {
           'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -33,7 +33,7 @@ const AppointmentList = () => {
 
   const { data, isLoading } = useQuery(["list", user], () =>
     fetch(
-      `https://floating-earth-43239.herokuapp.com/appointmentList?email=${user.email}`,
+      `https://dentist-doctor.up.railway.app/appointmentList?email=${user.email}`,
       {
         method: "GET",
         headers: {

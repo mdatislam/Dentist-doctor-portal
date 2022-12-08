@@ -9,7 +9,7 @@ const TestPost = () => {
     const book = {
       email,
     };
-    fetch("https://floating-earth-43239.herokuapp.com/user", {
+    fetch("https://dentist-doctor.up.railway.app/user", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -13,7 +13,7 @@ const EditDoctor = ({ doctorEdit, refetch, setDoctorEdit }) => {
   } = useForm();
   const [allServiceName, setServiceName] = useState([]);
   useEffect(() => {
-    fetch("https://floating-earth-43239.herokuapp.com/servicesName")
+    fetch("https://dentist-doctor.up.railway.app/servicesName")
       .then((res) => res.json())
       .then((data1) => setServiceName(data1));
   }, []);
@@ -26,7 +26,7 @@ const EditDoctor = ({ doctorEdit, refetch, setDoctorEdit }) => {
     };
 
     fetch(
-      `https://floating-earth-43239.herokuapp.com/doctor/update/${doctorEdit.email}`,
+      `https://dentist-doctor.up.railway.app/doctor/update/${doctorEdit.email}`,
       {
         method: "PUT",
         headers: {

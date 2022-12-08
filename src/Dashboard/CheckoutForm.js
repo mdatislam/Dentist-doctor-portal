@@ -18,7 +18,7 @@ const CheckoutForm = ({ booking }) => {
   const [clientSecret, setClientSecret] = useState("");
   const { _id, price, patientName, patientEmail } = booking;
   useEffect(() => {
-    fetch("https://floating-earth-43239.herokuapp.com/create-payment-intent", {
+    fetch("https://dentist-doctor.up.railway.app/create-payment-intent", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -83,7 +83,7 @@ const CheckoutForm = ({ booking }) => {
         appointment: _id,
         transactionId: paymentIntent.id,
       };
-      fetch(`https://floating-earth-43239.herokuapp.com/paymentDone/${_id}`, {
+      fetch(`https://dentist-doctor.up.railway.app/paymentDone/${_id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
